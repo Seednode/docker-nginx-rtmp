@@ -77,13 +77,11 @@ FROM alpine:latest
 # copy in nginx configs
 COPY nginx/ /etc/nginx/
 
-# copy in dash player and template
-COPY dash.js /var/www/html/dash.js
-COPY dash.html /var/www/html/dash.html
+# copy in dash template
+COPY dash.html /var/www/html/dash/dash.html
 
-# copy in hls player and template
-COPY hls.js /var/www/html/hls.js
-COPY hls.html /var/www/html/hls.html
+# copy in hls template
+COPY hls.html /var/www/html/hls/hls.html
 
 # setup nginx folders and files
 RUN adduser www-data -D -H
