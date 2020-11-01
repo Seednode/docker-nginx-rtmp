@@ -76,13 +76,6 @@ FROM alpine:latest
 # copy in nginx configs
 COPY nginx/ /etc/nginx/
 
-# copy in hls scripts
-#COPY hls-livestream.sh /usr/bin/hls-livestream.sh
-#COPY hls-playlist.sh /usr/bin/hls-playlist.sh
-
-# copy in flv.js
-COPY flv.min.js /flv.min.js
-
 # setup nginx folders and files
 RUN adduser www-data -D -H
 RUN chown -R www-data:www-data /etc/nginx
