@@ -57,6 +57,7 @@ RUN ./configure --prefix=/usr/share/nginx \
 	--with-http_ssl_module \
 	--add-module=/src/ngx-fancyindex \
 	--add-module=/src/nginx-http-flv-module \
+	--with-http_sub_module \
 	--without-http_fastcgi_module \
 	--without-http_uwsgi_module \
 	--without-http_scgi_module \
@@ -75,6 +76,14 @@ FROM alpine:latest
 
 # copy in nginx configs
 COPY nginx/ /etc/nginx/
+
+# copy in dash player and template
+COPY dash.js /var/www/html/dash.js
+COPY dash.html /var/www/html/dash.html
+
+# copy in hls player and template
+COPY hls.js /var/www/html/hls.js
+COPY hls.html /var/www/html/hls.html
 
 # setup nginx folders and files
 RUN adduser www-data -D -H
