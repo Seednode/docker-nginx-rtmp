@@ -15,7 +15,7 @@ stream="$1"
 
 # error out if no argument is provided
 if [ "$#" -ne 1 ]; then
-        exit 1;
+  exit 1;
 fi
 
 # create the base directory
@@ -25,12 +25,12 @@ mkdir -p "$basedir"/"$app"/"$stream"
 cat <<EOL > "$basedir"/"$app"/"$stream"/index.html
 <!doctype html>
 <html>
-    <body>
-        <div>
-            <video data-dashjs-player autoplay src="index.mpd" controls>
-            </video>
-        </div>
-        <script src="/js/dash.all.min.js"></script>
-    </body>
+  <body>
+    <div>
+      <video data-dashjs-player autoplay src="index.mpd" controls>
+      </video>
+    </div>
+    <script src="/js/dash.all.min.js"></script>
+  </body>
 </html>
 EOL

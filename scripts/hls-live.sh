@@ -15,7 +15,7 @@ stream="$1"
 
 # error out if no argument is provided
 if [ "$#" -ne 1 ]; then
-        exit 1;
+  exit 1;
 fi
 
 # create the base directory
@@ -26,20 +26,20 @@ cat <<EOL > "$basedir"/"$app"/"$stream"/index.html
 <script src="/js/hls.js"></script>
 <video id="video" controls></video>
 <script>
-        var video = document.getElementById('video');
-        if(Hls.isSupported()) {
-                var hls = new Hls();
-                hls.loadSource('index.m3u8');
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED,function() {
-                        video.play();
-                });
-        }
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = 'index.m3u8';
-                video.addEventListener('loadedmetadata',function() {
-                        video.play();
-                });
-        }
+  var video = document.getElementById('video');
+  if(Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource('index.m3u8');
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+    });
+  }
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = 'index.m3u8';
+    video.addEventListener('loadedmetadata',function() {
+      video.play();
+    });
+  }
 </script>
 EOL

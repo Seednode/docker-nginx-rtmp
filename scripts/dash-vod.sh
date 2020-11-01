@@ -34,13 +34,13 @@ mv "$basedir"/"$app"/"$stream"/* "$basedir"/"$subdirectory"/"$stream"/"$date"/
 cat <<EOL > "$basedir"/"$subdirectory"/"$stream"/"$date"/index.html
 <!doctype html>
 <html>
-    <body>
-        <div>
-            <video data-dashjs-player autoplay src="index.mpd" controls>
-            </video>
-        </div>
-        <script src="/js/dash.all.min.js"></script>
-    </body>
+  <body>
+    <div>
+      <video data-dashjs-player autoplay src="index.mpd" controls>
+      </video>
+    </div>
+    <script src="/js/dash.all.min.js"></script>
+  </body>
 </html>
 EOL
 
