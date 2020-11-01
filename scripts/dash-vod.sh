@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
-# generates an hls.js player for a recorded stream ingested by nginx-rtmp-module
-
-# exit if a command fails
-set -o errexit
-
-# exit if required variables aren't set
-set -o nounset
-
-# return the exit status of the final command before a failure
-set -o pipefail
+# generates an hls.js player for a recorded stream ingested by nginx-http-flv-module
 
 # created files should not be world writeable
 umask 002
