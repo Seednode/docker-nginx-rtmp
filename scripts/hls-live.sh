@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 # generates an hls.js player for a live stream ingested by nginx-http-flv-module
 
 # created files should not be world writeable
