@@ -32,7 +32,7 @@ mv "$basedir"/"$app"/"$stream"/* "$basedir"/"$subdirectory"/"$stream"/"$date"/
 
 # create playback page
 cat <<EOL > "$basedir"/"$subdirectory"/"$stream"/"$date"/index.html
-<script src="js/hls.js@latest"></script>
+<script src="/js/hls.js@latest"></script>
 <video id="video" controls></video>
 <script>
   var video = document.getElementById('video');

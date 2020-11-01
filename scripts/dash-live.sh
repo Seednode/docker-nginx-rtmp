@@ -30,7 +30,7 @@ cat <<EOL > "$basedir"/"$app"/"$stream"/index.html
             <video data-dashjs-player autoplay src="index.mpd" controls>
             </video>
         </div>
-        <script src="js/dash.all.min.js"></script>
+        <script src="/js/dash.all.min.js"></script>
     </body>
 </html>
 EOL
