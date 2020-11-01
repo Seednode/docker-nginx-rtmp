@@ -53,5 +53,7 @@ cat <<EOL > "$basedir"/"$subdirectory"/"$stream"/"$date"/index.html
 </script>
 EOL
 
-# remove livestream directory now that the vod is online
-rmdir "$basedir"/"$app"/"$stream"
+# add link to vod directory if no active stream is found
+cat <<EOL > "$basedir"/"$app"/"$stream"/vod.html
+No active stream. VODs, if any exist, are available <a href="/vods/$stream">here</a>.
+EOL
