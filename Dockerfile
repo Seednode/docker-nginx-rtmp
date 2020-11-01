@@ -25,8 +25,8 @@ RUN tar xzf "zlib-$ZLIB_VER.tar.gz"
 # download fancy-index module
 RUN git clone https://github.com/aperezdc/ngx-fancyindex.git /src/ngx-fancyindex
 
-# download the nginx-rtmp module
-RUN git clone https://github.com/sergey-dryabzhinsky/nginx-rtmp-module.git /src/nginx-rtmp-module
+# download the nginx-http-flv module
+RUN git clone https://github.com/winshining/nginx-http-flv-module.git /src/nginx-http-flv-module
 
 # download nginx source
 WORKDIR /src/nginx
@@ -56,7 +56,7 @@ RUN ./configure --prefix=/usr/share/nginx \
 	--with-http_addition_module \
 	--with-http_ssl_module \
 	--add-module=/src/ngx-fancyindex \
-	--add-module=/src/nginx-rtmp-module \
+	--add-module=/src/nginx-http-flv-module \
 	--without-http_fastcgi_module \
 	--without-http_uwsgi_module \
 	--without-http_scgi_module \
@@ -73,8 +73,12 @@ RUN make install
 # set up the final container
 FROM alpine:latest
 
-# copy in default nginx configs
+# copy in nginx configs
 COPY nginx/ /etc/nginx/
+
+# copy in hls scripts
+COPY hls-livestream.sh /usr/bin/hls-livestream.sh
+COPY hls-playlist.sh /usr/bin/hls-playlist.sh
 
 # setup nginx folders and files
 RUN adduser www-data -D -H
