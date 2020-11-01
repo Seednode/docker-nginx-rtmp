@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+
+  rtmp:
+    image: local/nginx-rtmp:1.19.4
+    container_name: rtmp
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "1935:1935"
