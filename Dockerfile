@@ -73,12 +73,6 @@ RUN make install
 # set up the final container
 FROM alpine:latest
 
-# copy in nginx configs
-COPY nginx/ /etc/nginx/
-
-# copy in dash and hls scripts
-COPY scripts/* /usr/bin/
-
 # setup nginx folders and files
 RUN adduser www-data -D -H
 RUN chown -R www-data:www-data /etc/nginx
@@ -87,6 +81,12 @@ RUN mkdir -p /var/log/nginx && chown -R www-data:www-data /var/log/nginx
 RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 RUN touch /run/nginx.pid && chown www-data:www-data /run/nginx.pid
 RUN mkdir -p /etc/nginx 
+
+# copy in nginx configs
+COPY nginx/ /etc/nginx/
+
+# copy in dash and hls scripts
+COPY scripts/* /usr/bin/
 
 # copy in dash player
 COPY js/ /var/www/html/js/
