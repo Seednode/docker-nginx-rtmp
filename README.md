@@ -2,7 +2,7 @@
 
 A minimal container for ingesting and playing back RTMP streams via the HLS or DASH protocols.
 
-To build the image, run the following command, optionally specifying an nginx version to build:
+To build the image, clone the repository and run the following command, optionally specifying an nginx version to build:
 
 `./build.sh [nginx_version]`
 
@@ -18,7 +18,7 @@ These environment variables and arguments can be combined:
 
 `REGISTRY=docker.seedno.de/seednode LATEST=yes ./build.sh 1.21.0`
 
-The resulting images from above might look like this:
+The resulting images from the above command might look like this:
 
 ```
 sinc@crimson ~ docker images
@@ -27,7 +27,7 @@ docker.seedno.de/seednode/nginx-rtmp            1.21.0         6e60200a2454   7 
 docker.seedno.de/seednode/nginx-rtmp            latest         6e60200a2454   7 hours ago    18.2MB
 ```
 
-DASH streams are stored in /var/www/html/dash, and HLS streams are stored in /var/www/html/hls.
+DASH streams are stored inside the container in `/var/www/html/dash`, and HLS streams are stored in `/var/www/html/hls`.
 
 Make sure to store these persistently if you want them to remain after stopping the container.
 
@@ -37,14 +37,14 @@ For example, to store the VODs in corresponding directories within your user hom
 
 To stream via OBS, under the Stream section:
 
-Set "Service" to "Custom..."
+Set `Service` to `Custom...`
 
-Set "Server" to "rtmp://your.ip.address.here/dash" for DASH or "rtmp://your.ip.address.here/hls" for HLS
+Set `Server` to `rtmp://your.ip.address.here/dash` for DASH or `rtmp://your.ip.address.here/hls` for HLS
 
-Set "Stream Key" to the directory you'd like to stream to, for example "seednode" would result in the following paths:
+Set `Stream Key` to the directory you'd like to stream to, for example a stream key of `seednode` would result in the following paths:
 
-DASH stream: http://your.ip.address.here/dash/seednode/
+DASH stream: `http://your.ip.address.here/dash/seednode/`
 
-HLS stream: http://your.ip.address.here/hls/seednode/
+HLS stream: `http://your.ip.address.here/hls/seednode/`
 
-VODs: http://your.ip.address.here/vods/seednode/
+VODs: `http://your.ip.address.here/vods/seednode/`
