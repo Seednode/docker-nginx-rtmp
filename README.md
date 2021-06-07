@@ -16,7 +16,7 @@ If no registry is specified, the images will be built as `local/nginx-rtmp:<vers
 
 If a registry is specified, the built images will be pushed to it once the build is finished.
 
-If you would like images to also be tagged as "latest", you can specify "LATEST=yes" as an environment variable:
+If you would like images to also be tagged as `latest`, you can specify `LATEST=yes` as an environment variable:
 
 `LATEST=yes ./build.sh`
 
