@@ -18,6 +18,15 @@ These environment variables and arguments can be combined:
 
 `REGISTRY=docker.seedno.de/seednode LATEST=yes ./build.sh 1.21.0`
 
+The resulting images from above might look like this:
+
+```
+sinc@crimson ~ docker images
+REPOSITORY                                      TAG            IMAGE ID       CREATED        SIZE
+docker.seedno.de/seednode/nginx-rtmp            1.21.0         6e60200a2454   7 hours ago    18.2MB
+docker.seedno.de/seednode/nginx-rtmp            latest         6e60200a2454   7 hours ago    18.2MB
+```
+
 DASH streams are stored in /var/www/html/dash, and HLS streams are stored in /var/www/html/hls.
 
 Make sure to store these persistently if you want them to remain after stopping the container.
