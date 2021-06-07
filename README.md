@@ -2,13 +2,21 @@
 
 A minimal container for ingesting and playing back RTMP streams via the HLS or DASH protocols.
 
-To build the image, run the following command:
+To build the image, run the following command, optionally specifying an nginx version to build:
 
 `./build.sh [nginx_version]`
 
 Optionally, you can specify the Docker registry to be used by prepending the `REGISTRY` environment variable:
 
+`REGISTRY=docker.seedno.de/seednode ./build.sh`
+
+If you would like images to also be tagged as "latest", you can specify "LATEST=yes" as an environment variable:
+
 `LATEST=yes ./build.sh`
+
+These environment variables and arguments can be combined:
+
+`REGISTRY=docker.seedno.de/seednode LATEST=yes ./build.sh 1.21.0`
 
 DASH streams are stored in /var/www/html/dash, and HLS streams are stored in /var/www/html/hls.
 
