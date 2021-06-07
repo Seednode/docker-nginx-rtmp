@@ -12,6 +12,10 @@ Optionally, you can specify the Docker registry to be used by prepending the `RE
 
 `REGISTRY=docker.seedno.de/seednode ./build.sh`
 
+If no registry is specified, the images will be built as `local/nginx-rtmp:<version>`.
+
+If a registry is specified, the built images will be pushed to it once the build is finished.
+
 If you would like images to also be tagged as "latest", you can specify "LATEST=yes" as an environment variable:
 
 `LATEST=yes ./build.sh`
@@ -29,7 +33,6 @@ docker.seedno.de/seednode/nginx-rtmp            1.21.0         6e60200a2454   7 
 docker.seedno.de/seednode/nginx-rtmp            latest         6e60200a2454   7 hours ago    18.2MB
 ```
 
-
 ## Running the container
 
 DASH streams are stored inside the container in `/var/www/html/dash`, and HLS streams are stored in `/var/www/html/hls`.
@@ -38,7 +41,9 @@ Make sure to store these persistently if you want them to remain after stopping 
 
 For example, to store the VODs in corresponding directories within your user home directory:
 
-`docker run -it --rm -v -v ${HOME}/dash:/var/www/html/dash -v ${HOME}/hls:/var/www/html/hls local/nginx-rtmp:latest`
+`docker run --detach --rm --mount type=bind,source=${HOME}/dash,destination=/var/www/html/dash --mount type=bind,source=${HOME}/hls,destination=/var/www/html/hls local/nginx-rtmp:latest`
+
+Make sure these directories exist prior to running the above command.
 
 ## Streaming with OBS
 
