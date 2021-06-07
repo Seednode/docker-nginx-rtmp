@@ -4,11 +4,11 @@ A minimal container for ingesting and playing back RTMP streams via the HLS or D
 
 To build the image, run the following command:
 
-`./build.sh <nginx_version>`
+`./build.sh [nginx_version]`
 
 Optionally, you can specify the Docker registry to be used by prepending the `REGISTRY` environment variable:
 
-`REGISTRY=docker.seedno.de/seednode ./build.sh 1.19.4`
+`LATEST=yes ./build.sh`
 
 DASH streams are stored in /var/www/html/dash, and HLS streams are stored in /var/www/html/hls.
 
@@ -16,4 +16,4 @@ Make sure to store these persistently if you want them to remain after stopping 
 
 For example, to store the VODs in corresponding directories within your user home directory:
 
-`docker run -it --rm -v $HOME/hls:/var/www/html/hls -v $HOME/dash:/var/www/html/dash local/nginx-rtmp:1.19.4`
+`docker run -it --rm -v $HOME/hls:/var/www/html/hls -v $HOME/dash:/var/www/html/dash local/nginx-rtmp:latest`
