@@ -16,4 +16,18 @@ Make sure to store these persistently if you want them to remain after stopping 
 
 For example, to store the VODs in corresponding directories within your user home directory:
 
-`docker run -it --rm -v $HOME/hls:/var/www/html/hls -v $HOME/dash:/var/www/html/dash local/nginx-rtmp:latest`
+`docker run -it --rm -v -v ${HOME}/dash:/var/www/html/dash -v ${HOME}/hls:/var/www/html/hls local/nginx-rtmp:latest`
+
+To stream via OBS, under the Stream section:
+
+Set "Service" to "Custom..."
+
+Set "Server" to "rtmp://your.ip.address.here/dash" for DASH or "rtmp://your.ip.address.here/hls" for HLS
+
+Set "Stream Key" to the directory you'd like to stream to, for example "seednode" would result in the following paths:
+
+DASH stream: http://your.ip.address.here/dash/seednode/
+
+HLS stream: http://your.ip.address.here/hls/seednode/
+
+VODs: http://your.ip.address.here/vods/seednode/
