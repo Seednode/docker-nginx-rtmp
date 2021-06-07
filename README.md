@@ -1,5 +1,7 @@
 # NGINX RTMP Relay
 
+## Building the image
+
 A minimal container for ingesting and playing back RTMP streams via the HLS or DASH protocols.
 
 To build the image, clone the repository and run the following command, optionally specifying an nginx version to build:
@@ -27,6 +29,9 @@ docker.seedno.de/seednode/nginx-rtmp            1.21.0         6e60200a2454   7 
 docker.seedno.de/seednode/nginx-rtmp            latest         6e60200a2454   7 hours ago    18.2MB
 ```
 
+
+## Running the container
+
 DASH streams are stored inside the container in `/var/www/html/dash`, and HLS streams are stored in `/var/www/html/hls`.
 
 Make sure to store these persistently if you want them to remain after stopping the container.
@@ -34,6 +39,8 @@ Make sure to store these persistently if you want them to remain after stopping 
 For example, to store the VODs in corresponding directories within your user home directory:
 
 `docker run -it --rm -v -v ${HOME}/dash:/var/www/html/dash -v ${HOME}/hls:/var/www/html/hls local/nginx-rtmp:latest`
+
+## Streaming with OBS
 
 To stream via OBS, under the Stream section:
 
