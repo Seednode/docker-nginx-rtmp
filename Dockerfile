@@ -75,7 +75,7 @@ RUN make install
 FROM alpine:latest
 
 # setup nginx folders and files
-RUN adduser www-data -D -H
+RUN adduser www-data -D -H -G www-data
 RUN mkdir -p /etc/nginx && chown -R www-data:www-data /etc/nginx
 RUN mkdir -p /tmp/nginx/{client,proxy} && chown -R www-data:www-data /tmp/nginx/
 RUN mkdir -p /var/log/nginx && chown -R www-data:www-data /var/log/nginx
