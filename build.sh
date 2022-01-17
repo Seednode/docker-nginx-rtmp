@@ -17,22 +17,26 @@ image_version="${1:-$nginx_mainline}"
 image_name="nginx-rtmp"
 
 # pass core count into container for build process
-core_count="$(nproc)"
+core_count="1"
 
 # if no arguments are passed, display usage info and exit
 if [ "$#" -ne 1 ]; then
   echo "No nginx version provided. Falling back to mainline version ${image_version}."
 fi
 
-# create docker image
-docker build --build-arg NGINX_VER="${image_version}" \
-             --build-arg CORE_COUNT="${core_count}" \
-             -t "${registry}/${image_name}:${image_version}" \
-             $(if [ "${LATEST}" == "yes" ]; then echo "-t ${registry}/${image_name}:latest"; fi) \
-             -f Dockerfile .
+# copy native image to local image repository
+docker buildx build --build-arg NGINX_VER="${image_version}" \
+                    --build-arg CORE_COUNT="${core_count}" \
+                    -t "${registry}/${image_name}:${image_version}" \
+                    $(if [ "${LATEST}" == "yes" ]; then echo "-t ${registry}/${image_name}:latest"; fi) \
+                    -f Dockerfile . \
+                    --load
 
-# if a registry is specified, push to it
-if [ "${registry}" != "local" ]; then
-  docker push "${registry}/${image_name}:${image_version}"
-  $(if [ "${LATEST}" == "yes" ]; then echo "docker push ${registry}/${image_name}:latest"; fi)
-fi
+# push amd64 and arm images to remote registry
+docker buildx build --platform linux/amd64,linux/arm,linux/arm64 \
+                    --build-arg NGINX_VER="${image_version}" \
+                    --build-arg CORE_COUNT="${core_count}" \
+                    -t "${registry}/${image_name}:${image_version}" \
+                    $(if [ "${LATEST}" == "yes" ]; then echo "-t ${registry}/${image_name}:latest"; fi) \
+                    -f Dockerfile . \
+                    --push
