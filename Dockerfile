@@ -96,6 +96,9 @@ RUN mkdir -p /etc/nginx \
     && mkdir -p /var/www/html \
     && touch /tmp/nginx.pid
 
+# copy in default nginx configs
+COPY nginx/ /etc/nginx/
+
 # set up the final container
 FROM gcr.io/distroless/static:nonroot
 
@@ -117,6 +120,10 @@ COPY --chown=nonroot:nonroot scripts/* /usr/bin/
 
 # copy in dash player
 COPY --chown=nonroot:nonroot js/ /var/www/html/js/
+
+# listen on an unprivileged port
+EXPOSE 1935
+EXPOSE 8080
 
 # configure entrypoint
 ENTRYPOINT ["/usr/sbin/nginx","-g","daemon off;"]
