@@ -22,21 +22,21 @@ RUN apt-get update \
 # download pcre library
 WORKDIR /src/pcre
 ARG PCRE_VER=8.44
-RUN curl -L -O "https://cfhcable.dl.sourceforge.net/project/pcre/pcre/$PCRE_VER/pcre-$PCRE_VER.tar.gz" \
-    && tar xzf "/src/pcre/pcre-$PCRE_VER.tar.gz"
+RUN curl -L -O "https://cfhcable.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER}/pcre-${PCRE_VER}.tar.gz" \
+    && tar xzf "/src/pcre/pcre-${PCRE_VER}.tar.gz"
 
 # download openssl
 ARG OPENSSL_VER=openssl-3.0.1
 WORKDIR /src/openssl
-RUN git clone -b $OPENSSL_VER git://git.openssl.org/openssl.git /src/openssl
+RUN git clone -b ${OPENSSL_VER} git://git.openssl.org/openssl.git /src/openssl
 ARG CORE_COUNT=1
-RUN ./config && make -j"$CORE_COUNT"
+RUN ./config && make -j"${CORE_COUNT}"
 
 # download zlib
 WORKDIR /src/zlib
 ARG ZLIB_VER=1.2.11
-RUN curl -L -O "https://www.zlib.net/zlib-$ZLIB_VER.tar.gz" \
-    && tar xzf "zlib-$ZLIB_VER.tar.gz"
+RUN curl -L -O "https://www.zlib.net/zlib-${ZLIB_VER}.tar.gz" \
+    && tar xzf "zlib-${ZLIB_VER}.tar.gz"
 
 # download fancy-index module
 RUN git clone https://github.com/aperezdc/ngx-fancyindex.git /src/ngx-fancyindex
@@ -47,11 +47,11 @@ RUN git clone https://github.com/winshining/nginx-http-flv-module.git /src/nginx
 # download nginx source
 WORKDIR /src/nginx
 ARG NGINX_VER
-RUN curl -L -O "http://nginx.org/download/nginx-$NGINX_VER.tar.gz" \
-    && tar xzf "nginx-$NGINX_VER.tar.gz"
+RUN curl -L -O "http://nginx.org/download/nginx-${NGINX_VER}.tar.gz" \
+    && tar xzf "nginx-${NGINX_VER}.tar.gz"
 
 # configure and build nginx
-WORKDIR /src/nginx/nginx-"$NGINX_VER"
+WORKDIR /src/nginx/nginx-"${NGINX_VER}"
 RUN ./configure --prefix=/usr/share/nginx \
                 --sbin-path=/usr/sbin/nginx \
                 --conf-path=/etc/nginx/nginx.conf \
@@ -63,8 +63,8 @@ RUN ./configure --prefix=/usr/share/nginx \
                 --http-proxy-temp-path=/tmp/nginx/proxy \
                 --with-threads \
                 --with-file-aio \
-                --with-zlib="/src/zlib/zlib-$ZLIB_VER" \
-                --with-pcre="/src/pcre/pcre-$PCRE_VER" \
+                --with-zlib="/src/zlib/zlib-${ZLIB_VER}" \
+                --with-pcre="/src/pcre/pcre-${PCRE_VER}" \
                 --with-pcre-jit \
                 --with-openssl="/src/openssl" \
                 --with-http_addition_module \
@@ -81,7 +81,7 @@ RUN ./configure --prefix=/usr/share/nginx \
                 --without-mail_smtp_module \
                 --with-cc-opt="-O2 -ffunction-sections -fdata-sections -fPIE -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security" \
                 --with-ld-opt="-Wl,--gc-sections -s -static -static-libgcc" \
-    && make -j"$CORE_COUNT" \
+    && make -j"${CORE_COUNT}" \
     && make install
 
 # compress the nginx binary
