@@ -21,12 +21,12 @@ RUN apt-get update \
 
 # download pcre library
 WORKDIR /src/pcre
-ARG PCRE_VER=8.44
+ARG PCRE_VER=8.45
 RUN curl -L -O "https://cfhcable.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER}/pcre-${PCRE_VER}.tar.gz" \
     && tar xzf "/src/pcre/pcre-${PCRE_VER}.tar.gz"
 
 # download openssl
-ARG OPENSSL_VER=openssl-3.0.1
+ARG OPENSSL_VER=openssl-3.0.2
 WORKDIR /src/openssl
 RUN git clone -b "${OPENSSL_VER}" git://git.openssl.org/openssl.git /src/openssl
 ARG CORE_COUNT=1
