@@ -26,7 +26,7 @@ RUN curl -L -O "https://cfhcable.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER
     && tar xzf "/src/pcre/pcre-${PCRE_VER}.tar.gz"
 
 # download openssl
-ARG OPENSSL_VER=openssl-3.0.5
+ARG OPENSSL_VER=openssl-3.0.7
 WORKDIR /src/openssl
 RUN git clone -b "${OPENSSL_VER}" git://git.openssl.org/openssl.git /src/openssl
 ARG CORE_COUNT=1
