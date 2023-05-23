@@ -1,18 +1,19 @@
 # multi-stage build for dockerized nginx
 
 # set up nginx build container
-FROM debian:testing-slim AS build
+FROM alpine:edge AS nginx
 
 # install dependencies
-RUN apt-get update \
-    && apt-get install -y \
-        curl \
-        g++ \
-        gcc \
-        git \
-        make \
-        tar \
-        upx
+RUN apk add --update-cache \
+    curl \
+    g++ \
+    gcc \
+    git \
+    linux-headers \
+    make \
+    perl \
+    tar \
+    upx
 
 # download pcre library
 WORKDIR /src/pcre
@@ -109,13 +110,13 @@ FROM gcr.io/distroless/static:nonroot
 USER nonroot
 
 # copy nginx files over
-COPY --from=build --chown=nonroot:nonroot /etc/nginx /etc/nginx
-COPY --from=build --chown=nonroot:nonroot /tmp/nginx.pid /tmp/nginx.pid
-COPY --from=build --chown=nonroot:nonroot /tmp/nginx /tmp/nginx
-COPY --from=build --chown=nonroot:nonroot /usr/sbin/nginx /usr/sbin/nginx
-COPY --from=build --chown=nonroot:nonroot /usr/share/nginx/fastcgi_temp /usr/share/nginx/fastcgi_temp
-COPY --from=build --chown=nonroot:nonroot /var/log/nginx /var/log/nginx
-COPY --from=build --chown=nonroot:nonroot /var/www/html /var/www/html
+COPY --from=nginx --chown=nonroot:nonroot /etc/nginx /etc/nginx
+COPY --from=nginx --chown=nonroot:nonroot /tmp/nginx.pid /tmp/nginx.pid
+COPY --from=nginx --chown=nonroot:nonroot /tmp/nginx /tmp/nginx
+COPY --from=nginx --chown=nonroot:nonroot /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=nginx --chown=nonroot:nonroot /usr/share/nginx/fastcgi_temp /usr/share/nginx/fastcgi_temp
+COPY --from=nginx --chown=nonroot:nonroot /var/log/nginx /var/log/nginx
+COPY --from=nginx --chown=nonroot:nonroot /var/www/html /var/www/html
 COPY --chown=nonroot:nonroot html/index.html /var/www/html/index.html
 
 # copy in dash and hls scripts
