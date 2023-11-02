@@ -22,7 +22,7 @@ RUN curl -L -O "https://cfhcable.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER
     && tar xzf "/src/pcre/pcre-${PCRE_VER}.tar.gz"
 
 # download openssl
-ARG OPENSSL_VER=openssl-3.1.2
+ARG OPENSSL_VER=openssl-3.1.4
 WORKDIR /src/openssl
 RUN git clone -b "${OPENSSL_VER}" git://git.openssl.org/openssl.git /src/openssl
 ARG CORE_COUNT=1
@@ -30,14 +30,9 @@ RUN ./config && make -j"${CORE_COUNT}"
 
 # download zlib
 WORKDIR /src/zlib
-ARG ZLIB_VER=1.2.13
+ARG ZLIB_VER=1.3
 RUN curl -L -O "https://www.zlib.net/zlib-${ZLIB_VER}.tar.gz" \
     && tar xzf "zlib-${ZLIB_VER}.tar.gz"
-
-# download brotli module
-WORKDIR /src/ngx_brotli
-RUN git clone https://github.com/google/ngx_brotli.git /src/ngx_brotli \
-    && git submodule update --init
 
 # download fancy-index module
 RUN git clone https://github.com/aperezdc/ngx-fancyindex.git /src/ngx-fancyindex
@@ -73,7 +68,6 @@ RUN ./configure --prefix=/usr/share/nginx \
                 --with-http_ssl_module \
                 --with-http_stub_status_module \
                 --with-http_sub_module \
-                --add-module=/src/ngx_brotli \
                 --add-module=/src/ngx-fancyindex \
                 --add-module=/src/nginx-http-flv-module \
                 --without-http_fastcgi_module \
