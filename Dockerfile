@@ -17,12 +17,12 @@ RUN apk add --update-cache \
 
 # download pcre library
 WORKDIR /src/pcre
-ARG PCRE_VER=8.45
-RUN curl -L -O "https://cfhcable.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER}/pcre-${PCRE_VER}.tar.gz" \
-    && tar xzf "/src/pcre/pcre-${PCRE_VER}.tar.gz"
+ARG PCRE_VER=10.42
+RUN curl -L -O "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${PCRE_VER}/pcre2-${PCRE_VER}.tar.gz" \
+    && tar xzf "/src/pcre/pcre2-${PCRE_VER}.tar.gz"
 
 # download openssl
-ARG OPENSSL_VER=openssl-3.2.0
+ARG OPENSSL_VER=openssl-3.2.1
 WORKDIR /src/openssl
 RUN git clone -b "${OPENSSL_VER}" git://git.openssl.org/openssl.git /src/openssl
 ARG CORE_COUNT=1
@@ -30,7 +30,7 @@ RUN ./config && make -j"${CORE_COUNT}"
 
 # download zlib
 WORKDIR /src/zlib
-ARG ZLIB_VER=1.3
+ARG ZLIB_VER=1.3.1
 RUN curl -L -O "https://www.zlib.net/zlib-${ZLIB_VER}.tar.gz" \
     && tar xzf "zlib-${ZLIB_VER}.tar.gz"
 
@@ -60,7 +60,8 @@ RUN ./configure --prefix=/usr/share/nginx \
                 --with-threads \
                 --with-file-aio \
                 --with-zlib="/src/zlib/zlib-${ZLIB_VER}" \
-                --with-pcre="/src/pcre/pcre-${PCRE_VER}" \
+                --with-ld-opt='lpcre' \
+                --with-pcre="/src/pcre/pcre2-${PCRE_VER}" \
                 --with-pcre-jit \
                 --with-openssl="/src/openssl" \
                 --with-http_addition_module \
