@@ -99,7 +99,10 @@ RUN mkdir -p /etc/nginx \
 COPY nginx/ /etc/nginx/
 
 # set up the final container
-FROM gcr.io/distroless/static:nonroot
+FROM scratch
+
+# create nonroot user
+COPY passwd /etc/passwd
 
 # run as nonroot
 USER nonroot
