@@ -24,7 +24,7 @@ RUN curl -L -O "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${
 # download openssl
 ARG OPENSSL_VER=openssl-3.3.0
 WORKDIR /src/openssl
-RUN git clone -b "${OPENSSL_VER}" git://git.openssl.org/openssl.git /src/openssl
+RUN git clone -b "${OPENSSL_VER}" https://github.com/openssl/openssl.git /src/openssl
 ARG CORE_COUNT=1
 RUN ./config && make -j"${CORE_COUNT}"
 
