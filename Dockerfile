@@ -89,7 +89,8 @@ RUN upx --best /usr/sbin/nginx
 
 # setup nginx folders and files
 RUN mkdir -p /etc/nginx \
-    && mkdir -p /tmp/nginx/{client,proxy} \
+    && mkdir -p /tmp/nginx/client \
+    && mkdir -p /tmp/nginx/proxy \
     && mkdir -p /usr/share/nginx/fastcgi_temp \
     && mkdir -p /var/log/nginx \
     && mkdir -p /var/www/html \
