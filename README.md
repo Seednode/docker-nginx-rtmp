@@ -22,15 +22,15 @@ If you would like images to also be tagged as `latest`, you can specify `LATEST=
 
 These environment variables and arguments can be combined:
 
-`REGISTRY=docker.seedno.de/seednode LATEST=yes ./build.sh 1.21.0`
+`REGISTRY=docker.seedno.de/seednode LATEST=yes ./build.sh 1.27.1`
 
 The resulting images from the above command might look like this:
 
 ```
-sinc@crimson ~ docker images
-REPOSITORY                                      TAG            IMAGE ID       CREATED        SIZE
-docker.seedno.de/seednode/nginx-rtmp            1.21.0         6e60200a2454   7 hours ago    18.2MB
-docker.seedno.de/seednode/nginx-rtmp            latest         6e60200a2454   7 hours ago    18.2MB
+╰─❯ docker images
+REPOSITORY                          TAG               IMAGE ID       CREATED         SIZE
+oci.seedno.de/seednode/nginx-rtmp   1.27.1            dbfa8cd88191   3 days ago      3.72MB
+oci.seedno.de/seednode/nginx-rtmp   latest            dbfa8cd88191   3 days ago      3.72MB
 ```
 
 ## Running the container
