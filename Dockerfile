@@ -117,6 +117,8 @@ COPY --from=nginx --chown=nonroot:nonroot /usr/share/nginx/fastcgi_temp /usr/sha
 COPY --from=nginx --chown=nonroot:nonroot /var/log/nginx /var/log/nginx
 COPY --from=nginx --chown=nonroot:nonroot /var/www/html /var/www/html
 COPY --chown=nonroot:nonroot html/index.html /var/www/html/index.html
+COPY fastcgi.conf /etc/nginx/
+COPY fastcgi_params /etc/nginx/
 
 # copy in dash and hls scripts
 COPY --chown=nonroot:nonroot scripts/* /usr/bin/
