@@ -22,7 +22,7 @@ RUN curl -L -O "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-${
     && tar xzf "/src/pcre/pcre2-${PCRE_VER}.tar.gz"
 
 # download openssl
-ARG OPENSSL_VER=openssl-3.4.0
+ARG OPENSSL_VER=openssl-3.4.1
 WORKDIR /src/openssl
 RUN git clone -b "${OPENSSL_VER}" https://github.com/openssl/openssl.git /src/openssl
 ARG CORE_COUNT=1
