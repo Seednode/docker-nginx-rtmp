@@ -30,7 +30,7 @@ RUN ./config && make -j"${CORE_COUNT}"
 
 # download zlib
 WORKDIR /src/zlib
-ARG ZLIB_VER=1.3.1
+ARG ZLIB_VER=1.3.2
 RUN curl -L -O "https://www.zlib.net/zlib-${ZLIB_VER}.tar.gz" \
     && tar xzf "zlib-${ZLIB_VER}.tar.gz"
 
