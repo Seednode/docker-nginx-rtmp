@@ -12,8 +12,7 @@ RUN apk add --update-cache \
     linux-headers \
     make \
     perl \
-    tar \
-    upx
+    tar
 
 # download pcre library
 WORKDIR /src/pcre
@@ -83,9 +82,6 @@ RUN ./configure --prefix=/usr/share/nginx \
                 --with-ld-opt="-Wl,--gc-sections -s -static -static-libgcc" \
     && make -j"${CORE_COUNT}" \
     && make install
-
-# compress the nginx binary
-RUN upx --best /usr/sbin/nginx
 
 # setup nginx folders and files
 RUN mkdir -p /etc/nginx \
